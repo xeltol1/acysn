@@ -22,13 +22,11 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    try:
-        print(f'{message.author} ({message.author.id}), ({message.guild.id}) : {message.content}')
-    except AttributeError:
-        print(f'{message.author} (DM) : {message.content}')
-    if message.author.id != DONOTDELETEFROMID and message.channel.id == CHANNELID and message.guild.id == GUILDID:
+    channel = "DM" if message.guild is None else message.guild.id
+    print(f'{message.author.name} (ID: {message.author.id}, DM/Guild: {channel}) : {message.content}')
+    if message.author.id != DO_NOT_DELETE_FROM_ID and message.channel.id == CHANNEL_ID and message.guild.id == GUILD_ID:
         await message.delete()
     else:
         pass
 
-bot.run(LOGINTOKENDONOTSHAREEVER)
+bot.run(LOGIN_TOKEN_DO_NOT_SHARE_EVER)
